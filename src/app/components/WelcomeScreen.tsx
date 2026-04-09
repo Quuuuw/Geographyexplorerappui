@@ -75,7 +75,7 @@ export function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           transition={{ delay: 0.5 }}
           className="text-4xl font-bold text-white mb-3"
         >
-          地理探险家
+          上海城市探索
         </motion.h1>
 
         {/* Subtitle */}
@@ -85,7 +85,7 @@ export function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           transition={{ delay: 0.8 }}
           className="text-xl text-white/90 mb-8"
         >
-          探索世界，学习地理
+          发现魔都的历史与现代之美
         </motion.p>
 
         {/* Loading dots */}

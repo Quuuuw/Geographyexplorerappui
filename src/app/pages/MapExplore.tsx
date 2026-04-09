@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Search, MapPin, Lock, TrendingUp, Info } from "lucide-react";
+import { Search, MapPin, Lock, TrendingUp, Info, Route } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { mockRegions } from "../data/mockData";
+import { mockRegions, exploreRoutes } from "../data/mockData";
 import { Region } from "../types";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
@@ -40,9 +40,12 @@ export function MapExplore() {
           className="mb-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl text-[#4A90E2] flex items-center gap-2">
-              🗺️ 地图探索
-            </h1>
+            <div>
+              <h1 className="text-3xl text-[#4A90E2] flex items-center gap-2">
+                🗺️ 上海城市探索
+              </h1>
+              <p className="text-sm text-gray-600 mt-1">发现魔都的历史与现代之美</p>
+            </div>
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -340,6 +343,65 @@ export function MapExplore() {
                   </Card>
                 </motion.div>
               ))}
+          </div>
+        </motion.div>
+
+        {/* Explore Routes Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mt-6"
+        >
+          <h2 className="text-xl mb-3 flex items-center gap-2 text-gray-700">
+            <Route className="w-5 h-5 text-[#4A90E2]" />
+            探索路线
+          </h2>
+          <div className="grid gap-3">
+            {exploreRoutes.map((route, index) => (
+              <motion.div
+                key={route.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9 + index * 0.1 }}
+              >
+                <Card
+                  className="p-4 bg-gradient-to-br from-white to-blue-50 hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-[#4A90E2]/50"
+                  onClick={() => navigate('/explore-routes')}
+                >
+                  <div className="flex items-center gap-4">
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-md flex-shrink-0"
+                      style={{ backgroundColor: `${route.color}20` }}
+                    >
+                      {route.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg mb-1">{route.name}</h3>
+                      <p className="text-sm text-gray-600 mb-2">{route.description}</p>
+                      <div className="flex items-center gap-3 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          {route.regions.length} 个站点
+                        </span>
+                        <span>•</span>
+                        <span>{route.duration}</span>
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate('/explore-routes');
+                      }}
+                    >
+                      查看详情
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

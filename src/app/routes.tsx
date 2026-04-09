@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Quiz from "./pages/Quiz";
 import { QuizResult } from "./pages/QuizResult";
 import { DailyChallenge } from "./pages/DailyChallenge";
+import { ExploreRoutes } from "./pages/ExploreRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -30,5 +31,9 @@ export const router = createBrowserRouter([
   {
     path: "/daily-challenge",
     Component: DailyChallenge,
+  },
+  {
+    path: "/explore-routes",
+    Component: ExploreRoutes,
   },
 ]);

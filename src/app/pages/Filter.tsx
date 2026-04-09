@@ -15,8 +15,17 @@ export default function Filter() {
     difficulty: 2,
   });
 
-  const chinaRegions = ['北京', '上海', '广东', '四川', '新疆', '黑龙江', '西藏', '云南'];
-  const worldRegions = ['美国', '英国', '法国', '日本', '澳大利亚', '巴西'];
+  // 上海各区域
+  const shanghaiRegions = [
+    '外滩万国建筑群',
+    '衡复风貌区', 
+    '陆家嘴金融区',
+    '豫园老城厢',
+    '新天地石库门',
+    '田子坊',
+    '南京路步行街',
+    '虹桥商务区'
+  ];
 
   const schoolStages: SchoolStage[] = ['primary', 'middle', 'high', 'general'];
   const ageRanges: AgeRange[] = ['6-9', '10-12', '13-15', '16+'];
@@ -63,8 +72,6 @@ export default function Filter() {
     }));
   };
 
-  const currentRegions = filters.mapType === 'china' ? chinaRegions : worldRegions;
-
   return (
     <div className="h-full flex flex-col bg-[#F5F7FA]">
       {/* Header */}
@@ -85,37 +92,27 @@ export default function Filter() {
 
       {/* Filter Content */}
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
-        {/* Map Type */}
-        <Card className="p-4 space-y-3">
-          <h3 className="text-sm">🗺️ 地图类型</h3>
-          <div className="flex gap-2">
-            <Button
-              variant={filters.mapType === 'china' ? 'default' : 'outline'}
-              className="flex-1"
-              onClick={() => setFilters(prev => ({ ...prev, mapType: 'china', regions: [] }))}
-            >
-              中国
-            </Button>
-            <Button
-              variant={filters.mapType === 'world' ? 'default' : 'outline'}
-              className="flex-1"
-              onClick={() => setFilters(prev => ({ ...prev, mapType: 'world', regions: [] }))}
-            >
-              世界
-            </Button>
-          </div>
+        {/* City Info */}
+        <Card className="p-4 space-y-3 bg-gradient-to-br from-blue-50 to-white border-2 border-[#4A90E2]">
+          <h3 className="text-sm flex items-center gap-2">
+            🏙️ 探索城市
+            <span className="text-xs px-2 py-0.5 bg-[#4A90E2] text-white rounded-full">上海</span>
+          </h3>
+          <p className="text-xs text-gray-600">
+            深入探索上海的历史建筑、现代地标和文化遗产
+          </p>
         </Card>
 
         {/* Region Selection */}
         <Card className="p-4 space-y-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm">📍 地区选择</h3>
+            <h3 className="text-sm">📍 区域选择</h3>
             <span className="text-xs text-gray-500">
               已选 {filters.regions.length} 个
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
-            {currentRegions.map(region => (
+            {shanghaiRegions.map(region => (
               <motion.button
                 key={region}
                 whileTap={{ scale: 0.95 }}

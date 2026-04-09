@@ -8,6 +8,21 @@ export interface Region {
   correctAnswers: number;
   x: number; // position on map
   y: number;
+  category?: 'historic' | 'modern' | 'cultural' | 'nature'; // 区域分类
+  landmark?: string; // 标志性建筑
+}
+
+// 新增：探索路线类型
+export interface ExploreRoute {
+  id: string;
+  name: string;
+  description: string;
+  difficulty: 1 | 2 | 3;
+  duration: string; // 预计时长
+  regions: string[]; // 包含的地区ID
+  highlights: string[]; // 亮点
+  icon: string;
+  color: string;
 }
 
 export interface QuestionOption {
