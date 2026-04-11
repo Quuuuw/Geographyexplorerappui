@@ -17,7 +17,7 @@ export function LevelMap() {
           className="mb-6"
         >
           <h1 className="text-3xl mb-2 text-[#4A90E2]">🎯 闯关答题</h1>
-          <p className="text-gray-600">选择一个地区开始你的学习之旅</p>
+          <p className="text-gray-600">跟城小探一起，开启学习之旅</p>
         </motion.div>
 
         {/* Level Path */}

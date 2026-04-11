@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { useEffect } from 'react';
 import { Compass, Map, Globe2 } from 'lucide-react';
+import logoImg from '../../imports/logo.jpg';
 
 interface WelcomeScreenProps {
   onComplete: () => void;
@@ -39,9 +40,9 @@ export function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
             className="absolute inset-2 w-28 h-28 border-4 border-white/50 rounded-full"
           />
 
-          {/* Center globe */}
-          <div className="relative w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl">
-            <Globe2 className="w-16 h-16 text-[#4A90E2]" />
+          {/* Center logo */}
+          <div className="relative w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl overflow-hidden">
+            <img src={logoImg} alt="读城记" className="w-full h-full object-cover" />
           </div>
 
           {/* Floating icons */}
@@ -73,9 +74,9 @@ export function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-4xl font-bold text-white mb-3"
+          className="text-5xl font-bold text-white mb-3"
         >
-          上海城市探索
+          读城记
         </motion.h1>
 
         {/* Subtitle */}
@@ -85,7 +86,7 @@ export function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           transition={{ delay: 0.8 }}
           className="text-xl text-white/90 mb-8"
         >
-          发现魔都的历史与现代之美
+          跟城小探一起，读懂每座城市的故事
         </motion.p>
 
         {/* Loading dots */}

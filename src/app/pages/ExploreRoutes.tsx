@@ -1,12 +1,15 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { MapPin, Clock, Star, ChevronRight, Navigation } from 'lucide-react';
 import { exploreRoutes, mockRegions } from '../data/mockData';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
+import { GuideIntro } from '../components/GuideIntro';
+import { useState } from 'react';
 
 export function ExploreRoutes() {
   const navigate = useNavigate();
+  const [expandedRouteId, setExpandedRouteId] = useState<string | null>(null);
 
   const getRouteProgress = (routeId: string) => {
     const route = exploreRoutes.find(r => r.id === routeId);
@@ -48,10 +51,10 @@ export function ExploreRoutes() {
           className="mb-6"
         >
           <h1 className="text-3xl mb-2 text-[#4A90E2] flex items-center gap-2">
-            🗺️ 城市探索路线
+            🗺️ 精选探索路线
           </h1>
           <p className="text-gray-600">
-            精选上海经典路线，系统性地了解魔都的历史与文化
+            跟城小探一起，系统性地探索各个城市的历史文化与现代魅力
           </p>
         </motion.div>
 
@@ -71,6 +74,19 @@ export function ExploreRoutes() {
                 transition={{ delay: index * 0.2 }}
               >
                 <Card className="overflow-hidden bg-white shadow-xl">
+                  {/* 城小探介绍 */}
+                  <AnimatePresence>
+                    {expandedRouteId === route.id && route.guideIntro && (
+                      <div className="p-6 pb-0">
+                        <GuideIntro
+                          message={route.guideIntro}
+                          onClose={() => setExpandedRouteId(null)}
+                          autoClose={false}
+                        />
+                      </div>
+                    )}
+                  </AnimatePresence>
+
                   {/* Route Header */}
                   <div
                     className="p-6 bg-gradient-to-r"
@@ -234,8 +250,20 @@ export function ExploreRoutes() {
                     </div>
                   </div>
 
-                  {/* Action Button */}
-                  <div className="p-6 pt-0">
+                  {/* Action Buttons */}
+                  <div className="p-6 pt-0 space-y-3">
+                    {/* 查看城小探介绍按钮 */}
+                    {route.guideIntro && expandedRouteId !== route.id && (
+                      <Button
+                        variant="outline"
+                        className="w-full h-12 border-[#4A90E2] text-[#4A90E2] hover:bg-[#4A90E2]/10"
+                        onClick={() => setExpandedRouteId(route.id)}
+                      >
+                        👋 听城小探介绍这条路线
+                      </Button>
+                    )}
+
+                    {/* 开始探索按钮 */}
                     <Button
                       className="w-full h-12"
                       style={{
@@ -281,8 +309,8 @@ export function ExploreRoutes() {
               <div className="flex-1">
                 <h3 className="text-sm font-medium mb-1">探索小贴士</h3>
                 <p className="text-xs text-gray-600">
-                  建议按照路线顺序依次完成各个站点的学习，这样能更系统地了解上海的历史文化。
-                  完成整条路线后，你将获得相应的成就徽章！
+                  建议按照路线顺序依次完成各个站点的学习，这样能更系统地了解城市的历史文化。
+                  完成整条路线后，你将获得相应的成就徽章！城小探会一直陪伴你哦~
                 </p>
               </div>
             </div>

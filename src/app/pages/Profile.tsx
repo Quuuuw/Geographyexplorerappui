@@ -1,9 +1,9 @@
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
-import { mockUserProfile } from '../data/mockData';
+import { mockUserProfile, cities } from '../data/mockData';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { ChevronRight, Trophy, Target, Flame, Clock, Settings } from 'lucide-react';
+import { ChevronRight, Trophy, Target, Flame, Clock, Settings, MapPin, Calendar } from 'lucide-react';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function Profile() {
           </motion.div>
           <div className="flex-1">
             <h2 className="text-white mb-1">{user.nickname}</h2>
-            <p className="text-white/80 text-sm">继续加油，探索更多地理知识！</p>
+            <p className="text-white/80 text-sm">继续加油，跟城小探探索更多城市！</p>
           </div>
         </div>
       </div>
@@ -97,6 +97,121 @@ export default function Profile() {
               </motion.div>
             ))}
           </div>
+        </Card>
+      </div>
+
+      {/* 城市足迹 */}
+      <div className="px-4 mb-6">
+        <Card className="p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3>🗺️ 我的城市足迹</h3>
+            <span className="text-xs text-gray-500">
+              {user.cityFootprints.length}/{cities.length}个城市
+            </span>
+          </div>
+
+          {user.cityFootprints.length > 0 ? (
+            <div className="space-y-3">
+              {user.cityFootprints.map((footprint, index) => {
+                const city = cities.find(c => c.id === footprint.cityId);
+                if (!city) return null;
+
+                return (
+                  <motion.div
+                    key={footprint.cityId}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl"
+                  >
+                    <div className="flex items-start gap-3">
+                      {/* 城市图标 */}
+                      <div
+                        className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-md"
+                        style={{ backgroundColor: `${city.color}20` }}
+                      >
+                        {city.icon}
+                      </div>
+
+                      {/* 城市信息 */}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-medium">{footprint.cityName}</h4>
+                          <span
+                            className="text-xs px-2 py-0.5 rounded-full"
+                            style={{
+                              backgroundColor: `${city.color}20`,
+                              color: city.color,
+                            }}
+                          >
+                            {footprint.completionRate}%
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-xs text-gray-600 mb-2">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {new Date(footprint.visitedAt).toLocaleDateString('zh-CN')}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {footprint.regionCount}/{footprint.totalRegions}个区域
+                          </div>
+                        </div>
+
+                        {/* 进度条 */}
+                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${footprint.completionRate}%` }}
+                            transition={{ delay: index * 0.1 + 0.3, duration: 0.8 }}
+                            className="h-full rounded-full"
+                            style={{ backgroundColor: city.color }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <div className="text-4xl mb-3">🧭</div>
+              <p className="text-gray-500 text-sm mb-4">还没有城市足迹</p>
+              <Button
+                size="sm"
+                onClick={() => navigate('/')}
+                className="bg-[#4A90E2]"
+              >
+                开始探索
+              </Button>
+            </div>
+          )}
+
+          {/* 城市预览 */}
+          {user.cityFootprints.length > 0 && user.cityFootprints.length < cities.length && (
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <p className="text-xs text-gray-500 mb-3">待探索的城市</p>
+              <div className="flex flex-wrap gap-2">
+                {cities
+                  .filter(city => !user.cityFootprints.some(f => f.cityId === city.id))
+                  .slice(0, 6)
+                  .map((city, index) => (
+                    <motion.div
+                      key={city.id}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 rounded-full text-xs"
+                    >
+                      <span>{city.icon}</span>
+                      <span className="text-gray-600">{city.name}</span>
+                    </motion.div>
+                  ))}
+              </div>
+            </div>
+          )}
         </Card>
       </div>
 

@@ -42,17 +42,27 @@ export function MapExplore() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl text-[#4A90E2] flex items-center gap-2">
-                🗺️ 上海城市探索
+                🗺️ 读城记
               </h1>
-              <p className="text-sm text-gray-600 mt-1">发现魔都的历史与现代之美</p>
+              <p className="text-sm text-gray-600 mt-1">跟城小探一起，读懂每座城市的故事</p>
             </div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white rounded-full p-3 shadow-md cursor-pointer"
-            >
-              <Info className="w-5 h-5 text-[#4A90E2]" />
-            </motion.div>
+            <div className="flex gap-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white rounded-full p-3 shadow-md cursor-pointer"
+                onClick={() => navigate('/cities')}
+              >
+                <span className="text-lg">🌏</span>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white rounded-full p-3 shadow-md cursor-pointer"
+              >
+                <Info className="w-5 h-5 text-[#4A90E2]" />
+              </motion.div>
+            </div>
           </div>
           
           {/* Search Bar */}

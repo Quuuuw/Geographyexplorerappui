@@ -10,6 +10,19 @@ export interface Region {
   y: number;
   category?: 'historic' | 'modern' | 'cultural' | 'nature'; // 区域分类
   landmark?: string; // 标志性建筑
+  cityId?: string; // 所属城市ID
+}
+
+// 城市类型
+export interface City {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  completionRate: number; // 城市整体完成度
+  visited: boolean; // 是否已访问过
+  regionCount: number; // 该城市的区域数量
 }
 
 // 新增：探索路线类型
@@ -23,6 +36,8 @@ export interface ExploreRoute {
   highlights: string[]; // 亮点
   icon: string;
   color: string;
+  cityId: string; // 所属城市ID
+  guideIntro?: string; // 城小探的介绍语
 }
 
 export interface QuestionOption {
@@ -51,6 +66,17 @@ export interface UserProfile {
   achievements: Achievement[];
   level: number;
   experience: number;
+  cityFootprints: CityFootprint[]; // 城市足迹
+}
+
+// 城市足迹类型
+export interface CityFootprint {
+  cityId: string;
+  cityName: string;
+  visitedAt: string; // 首次访问时间
+  completionRate: number; // 该城市完成度
+  regionCount: number; // 已探索区域数
+  totalRegions: number; // 总区域数
 }
 
 export interface Achievement {

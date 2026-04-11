@@ -231,8 +231,10 @@ export default function Quiz() {
                       <h3 className={isCorrect ? 'text-[#2E7D32]' : 'text-[#C62828]'}>
                         {isCorrect ? '回答正确！' : '回答错误'}
                       </h3>
-                      {isCorrect && (
-                        <p className="text-sm text-[#558B2F]">太棒了，继续保持！</p>
+                      {isCorrect ? (
+                        <p className="text-sm text-[#558B2F]">城小探为你点赞！继续加油~</p>
+                      ) : (
+                        <p className="text-sm text-[#C62828]">别灰心，城小探陪你一起学习！</p>
                       )}
                     </div>
                     {isCorrect && (

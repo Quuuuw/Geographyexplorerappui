@@ -8,6 +8,7 @@ import Quiz from "./pages/Quiz";
 import { QuizResult } from "./pages/QuizResult";
 import { DailyChallenge } from "./pages/DailyChallenge";
 import { ExploreRoutes } from "./pages/ExploreRoutes";
+import { CitySelector } from "./pages/CitySelector";
 
 export const router = createBrowserRouter([
   {
@@ -35,5 +36,9 @@ export const router = createBrowserRouter([
   {
     path: "/explore-routes",
     Component: ExploreRoutes,
+  },
+  {
+    path: "/cities",
+    Component: CitySelector,
   },
 ]);
